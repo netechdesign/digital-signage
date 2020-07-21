@@ -4,6 +4,7 @@ const shortid = require('shortid')
 const Schema = mongoose.Schema
 
 const Display = new Schema({
+  verifycode: { type: String },
   name: { type: String },
   layout: { type: String, default: 'spaced', enum: ['compact', 'spaced'] },
   statusBar: {

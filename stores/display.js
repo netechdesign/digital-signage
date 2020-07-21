@@ -11,6 +11,7 @@ const updateDisplayThrottled = _.debounce((id, data) => {
 const display = store({
   id: null,
   name: null,
+  verifycode:null,
   layout: null,
   statusBar: null,
   widgets: null,
@@ -22,6 +23,7 @@ const display = store({
     display.statusBar = displayInfo.statusBar
     display.name = displayInfo.name
     display.widgets = displayInfo.widgets
+
   },
   setName(name) {
     if (!name) return
@@ -31,6 +33,11 @@ const display = store({
     if (!name) return
     display.name = name
     updateDisplayThrottled(display.id, { name })
+  },
+  updateVerifycode(verifycode) {
+    
+    display.verifycode = verifycode
+    updateDisplayThrottled(display.id, { verifycode })
   },
   updateLayout(layout) {
     if (!layout || !['spaced', 'compact'].includes(layout)) return

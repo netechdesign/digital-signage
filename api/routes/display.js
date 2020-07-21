@@ -67,11 +67,12 @@ router
     return Display.findById(id)
       .then(display => {
         if (!display) return next(new Error('Display not found'))
-
+        
+        if ('verifycode' in req.body) display.verifycode = req.body.verifycode
         if ('name' in req.body) display.name = req.body.name
         if ('layout' in req.body) display.layout = req.body.layout
         if ('statusBar' in req.body) display.statusBar = req.body.statusBar
-
+        
         return display
           .save()
           .then(() => CommonHelper.broadcastUpdate(res.io))
@@ -81,5 +82,18 @@ router
       })
       .catch(err => next(err))
   })
+
+  // Route: /api/v1/display/:verifycode
+router
+.get('/:code/verification', (req, res, next) => {
+  console.log(req)
+  const { code } = req.params
+  return Display.find({ verifycode: code})
+    .populate('widgets')
+    .then(display => {
+      return res.json(display[0])
+    })
+    .catch(err => next(err))
+})
 
 module.exports = router

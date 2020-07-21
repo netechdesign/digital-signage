@@ -114,6 +114,28 @@ class Layout extends React.Component {
             </div>
           </div>
         </div>
+        <div className={'head'}>
+          <h1>verify code</h1>
+          <div className='editable-title'>
+            <input
+              className='input'
+              placeholder='verify code'
+              value={display && display.verifycode}
+              onChange={event => {
+                const target = event.target
+                const title = target && target.value
+                display.updateVerifycode(title)
+              }}
+              onClick={e => {
+                if (e) e.stopPropagation()
+              }}
+              size={display && display.name && display.name.length}
+            />
+            <div className='icon'>
+              <FontAwesomeIcon icon={faPencilAlt} fixedWidth color='#828282' />
+            </div>
+          </div>
+        </div>
         <div className='settings'>
           <DropdownButton
             icon='plus'

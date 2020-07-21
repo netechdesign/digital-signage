@@ -39,3 +39,13 @@ export const updateDisplay = (id, data, host = '') => {
     }
   })
 }
+
+//get verification
+
+export const getVerification = (fcode, host = '') => {
+  return axios.get(host + '/api/v1/display/' + fcode+'/verification').then(res => {
+    if (res && res.data) {
+      return res.data
+    }
+  })
+}
